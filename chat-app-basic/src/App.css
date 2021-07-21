@@ -1,0 +1,21 @@
+.tim:hover {
+  cursor: pointer;
+}
+.video{
+  width: 300px;
+  height: 300px;
+}
+
+.video-container{
+  display: flex;
+  justify-content: space-between;
+}
+
+.videoStream{
+  border-radius: 10px;
+}
+
+.call-button{
+  display: flex;
+  justify-content: center;
+}
