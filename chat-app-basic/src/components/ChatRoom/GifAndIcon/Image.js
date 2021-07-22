@@ -30,7 +30,7 @@ const Div1Styled = styled.div`
     text-align: justify;
   }
 
-  .image{
+  .img{
     border-radius: 20px;
     border: 1px solid #ddd;
   }

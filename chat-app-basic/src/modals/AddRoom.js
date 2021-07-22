@@ -19,7 +19,8 @@ export default function AddRoom() {
             addDocuments('rooms', {
                 ...form.getFieldsValue(),
                 members: [uid],
-                isTyping: []
+                isTyping: [],
+                admin: uid
             });
             form.resetFields();
             setIsAddRoomVisible(false);

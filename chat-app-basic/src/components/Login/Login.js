@@ -25,6 +25,7 @@ function Login() {
                     keywords: generateKeywords(user.displayName?.toLowerCase()),
                     status: '',
                     last_changed: '',
+                    isPopup: 't',
                 })
                 setDocuments('notifys',{
                     roomId: [],

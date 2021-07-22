@@ -8,7 +8,6 @@ import { AppContext } from "../../context/AppProvider";
 import { AuthContext } from "../../context/AuthProvider";
 import { db } from "../../firebase/Config";
 
-const socket = io.connect("https://huongmin23.herokuapp.com/");
 function VideoCall() {
   const [me, setMe] = useState("");
   const [stream, setStream] = useState();
@@ -27,7 +26,7 @@ function VideoCall() {
     user: { uid, displayName},
   } = useContext(AuthContext);
 
-  const { isVideoCall, callUserId, setIsVideoCall } =
+  const { isVideoCall, callUserId, setIsVideoCall, socket } =
     useContext(AppContext);
 
   useEffect(() => {
@@ -51,7 +50,7 @@ function VideoCall() {
       setName(data.name);
       setCallerSignal(data.signal);
     });
-  }, [isVideoCall, me]);
+  }, [isVideoCall]);
 
   useEffect(()=>{
     if(callUserId !== ''){
@@ -110,6 +109,7 @@ function VideoCall() {
   const leaveCall = () => {
     setCallEnded(true);
     connectionRef.current.destroy();
+    window.location.reload()
   };
 
   const hadleCancel = () => {
@@ -176,7 +176,7 @@ function VideoCall() {
       <div className="myId">
         <div className="call-button">
           {callAccepted && !callEnded ? (
-            <Button onClick={leaveCall}>End Call</Button>
+            <Button onClick={leaveCall}>Kết thúc</Button>
           ) : (
             <Button style={{display: receivingCall && !callAccepted ? 'none' : 'block'}} onClick={() => callUser(idToCall)} icon={<PhoneOutlined />}>
               Gọi ngay
@@ -187,9 +187,9 @@ function VideoCall() {
       <div>
         {receivingCall && !callAccepted ? (
           <div className="caller">
-            <h1 align='center'>{displayName} is calling...</h1>
+            <h1 align='center'>{displayName} đang gọi ...</h1>
             <div style={{display:'flex',justifyContent:'center'}} >
-            <Button onClick={answerCall}>Answer</Button>
+            <Button onClick={answerCall}>Trả lời</Button>
                 
             </div>
           </div>

@@ -6,7 +6,7 @@ import Icon, {
   SendOutlined,
   SettingOutlined,
   UsergroupAddOutlined,
-  UserOutlined
+  UserOutlined,
 } from "@ant-design/icons";
 import { Button, Dropdown, Form, Input, Menu, message, Popover } from "antd";
 import { useForm } from "antd/lib/form/Form";
@@ -18,7 +18,7 @@ import React, {
   useLayoutEffect,
   useMemo,
   useRef,
-  useState
+  useState,
 } from "react";
 import ReactAudioPlayer from "react-audio-player";
 import styled from "styled-components";
@@ -146,10 +146,11 @@ function ChatWindow() {
     setIsEditRoomVisible,
     members,
     setIsShowGif,
-    isPopup,
     setIsShowInputIcon,
-    isShowInputIcon,
+    isShowInputIcon,rooms
   } = useContext(AppContext);
+
+
 
   const time = 30;
 
@@ -171,6 +172,17 @@ function ChatWindow() {
   }, [selectedRoomId]);
 
   const messages = UseFirestore("messages", messagesCondition);
+  const [isPopup, setIsPopup] = useState('');
+
+  // useEffect(()=>{
+  //   const a = db.collection('users').doc(uid).onSnapshot((snap)=>{
+  //     const b = snap.data().isPopup;
+  //     setIsPopup(b);
+  //   })
+
+  //   return a;
+  // },[])
+
 
   useEffect(() => {
     setIsLoadingMes(true);
@@ -198,7 +210,7 @@ function ChatWindow() {
           }
         });
       });
-      inputRef.current?.focus()
+    inputRef.current?.focus();
     return un;
   }, [selectedRoomId]);
 
@@ -674,8 +686,8 @@ function ChatWindow() {
             ms?.createAt?.seconds - messages[ms.index - 1]?.createAt?.seconds >
               time) ||
           (messages[ms.index - 1]?.uid === uid &&
-            messages[ms.index + 1]?.createAt?.seconds - ms?.createAt?.seconds >
-              time) ? (
+            (messages[ms.index + 1]?.createAt?.seconds - ms?.createAt?.seconds >
+              time || ms.index === messages.length - 1 ))  ? (
             <>
               {" "}
               {ms.text.length === 0 && ms?.image.length > 0 ? (
@@ -942,7 +954,8 @@ function ChatWindow() {
             oldData.length === 0
               ? "Fake Messenger"
               : "(" + oldData.length + ") Fake Messenger";
-          if (isPopup) {
+               
+          if (true) {
             const last = messages[messages.length - 1];
             const mm = db
               .collection("messages")
@@ -967,7 +980,8 @@ function ChatWindow() {
                       badge:
                         "https://static.xx.fbcdn.net/rsrc.php/ym/r/YQbyhl59TWY.ico",
                       icon: last?.text === "" ? "li.png" : "noty.png",
-                      renotify: false,
+                      tag:'p',
+                      renotify: true,
                       body: last?.text,
                     }
                   );
@@ -986,6 +1000,13 @@ function ChatWindow() {
       });
     return abc;
   }, []);
+
+  useEffect(()=>{
+    if(rooms.find((item)=> item.id === selectedRoomId) === undefined){
+      setSelectedRoomId('')
+    }
+  },[rooms])
+
 
   const loadingListMessage = () =>
     isLoadingMes === true ? (
@@ -1218,17 +1239,16 @@ function ChatWindow() {
   const sendForm = () => (
     <span style={{ display: "flex" }}>
       <Button
-          style={{
-            width: "40px",
-            color: "blue",
-            border: "none",
-            marginTop: '13px'
-          }}
-          icon={<FileGifOutlined style={{fontSize: '15pt'}} />}
-          onClick={() => setIsShowGif(true)}
-        ></Button>
+        style={{
+          width: "40px",
+          color: "blue",
+          border: "none",
+          marginTop: "13px",
+        }}
+        icon={<FileGifOutlined style={{ fontSize: "15pt" }} />}
+        onClick={() => setIsShowGif(true)}
+      ></Button>
       <FormStyled width="500px" form={form1}>
-        
         <Form.Item name="message">
           <Input
             ref={inputRef}
@@ -1268,14 +1288,16 @@ function ChatWindow() {
           onVisibleChange={() => setIsShowInputIcon(false)}
         ></Popover>
       </FormStyled>
-      {form1.getFieldsValue().message !== "" || form1.getFieldsValue() === "" ? (
-        <Button ghost
+      {form1.getFieldsValue().message !== "" ||
+      form1.getFieldsValue() === "" ? (
+        <Button
+          ghost
           style={{
             marginTop: "13px",
             width: "40px",
             color: "blue",
           }}
-          icon={<SendOutlined style={{fontSize: '15pt'}} />}
+          icon={<SendOutlined style={{ fontSize: "15pt" }} />}
           onClick={handleOnSubmit}
         ></Button>
       ) : (

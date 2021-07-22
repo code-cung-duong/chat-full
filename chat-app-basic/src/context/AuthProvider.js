@@ -22,9 +22,10 @@ function AuthProvider({ children }) {
                     uid,
                     phoneNumber,
                     photoURL,
-                    status,
-                    last_changed,
+                    
                 } = user;
+
+                
 
                 setUser({
                     displayName,
@@ -32,8 +33,6 @@ function AuthProvider({ children }) {
                     uid,
                     phoneNumber,
                     photoURL,
-                    status,
-                    last_changed,
                 });
 
                 setIsLoading(false);
@@ -50,7 +49,6 @@ function AuthProvider({ children }) {
             unsub();
         };
     }, [history]);
-
 
     return (
         <AuthContext.Provider value={
