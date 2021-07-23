@@ -2,8 +2,8 @@
   cursor: pointer;
 }
 .video{
-  width: 300px;
-  height: 300px;
+  width: 400px;
+  height: 400px;
 }
 
 .video-container{
@@ -17,5 +17,7 @@
 
 .call-button{
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: baseline;
 }
+

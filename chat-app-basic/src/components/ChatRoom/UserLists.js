@@ -81,7 +81,9 @@ function UserLists() {
   } = useContext(AuthContext);
 
   const users = UseFirestore("users", "");
-  const { members, setUserCallId, setIsShowMembersVisible, setIsVideoCall } =
+  const { 
+    setIsShowVideoCall,
+    setUserToCall, setIsShowMembersVisible } =
     useContext(AppContext);
 
   function formatDate(seconds) {
@@ -106,8 +108,8 @@ function UserLists() {
   }
 
   const handleCall = (user) => {
-    setIsVideoCall(true);
-    setUserCallId(user.uid);
+    setIsShowVideoCall(true);
+    setUserToCall(user);
     setIsShowMembersVisible(false);
   };
 

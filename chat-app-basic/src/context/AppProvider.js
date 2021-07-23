@@ -8,12 +8,12 @@ function AppProvider({ children }) {
   const [isAddRoomVisible, setIsAddRoomVisible] = useState(false);
   const [isShowMembersVisible, setIsShowMembersVisible] = useState(false);
   const [selectedRoomId, setSelectedRoomId] = useState("");
-  const [callUserId, setUserCallId] = useState("");
   const [isInviteMemberVisible, setIsInviteMemberVisible] = useState(false);
   const [isEditRoomVisible, setIsEditRoomVisible] = useState(false);
   const [isShowGif, setIsShowGif] = useState(false);
   const [isShowInputIcon, setIsShowInputIcon] = useState(false);
-  const [isVideoCall, setIsVideoCall] = useState(false);
+  const [isShowVideoCall, setIsShowVideoCall] = useState(false);
+  const [userToCall, setUserToCall] = useState({});
   const socket = io.connect("https://huongmin23.herokuapp.com/");
 
   const {
@@ -75,11 +75,11 @@ function AppProvider({ children }) {
         setIsShowGif,
         isShowInputIcon,
         setIsShowInputIcon,
-        isVideoCall,
-        setIsVideoCall,
-        callUserId,
-        setUserCallId,
-        socket
+        socket,
+        isShowVideoCall,
+        setIsShowVideoCall,
+        userToCall,
+        setUserToCall,
       }}
     >
       {children}{" "}

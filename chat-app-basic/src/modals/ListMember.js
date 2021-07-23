@@ -2,7 +2,6 @@ import { EllipsisOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Menu, Popconfirm, Typography } from "antd";
 import Avatar from "antd/lib/avatar/avatar";
 import MenuItem from "antd/lib/menu/MenuItem";
-import { getKeyThenIncreaseKey } from "antd/lib/message";
 import Modal from "antd/lib/modal/Modal";
 import React, { useCallback, useContext } from "react";
 import styled from "styled-components";
@@ -45,11 +44,8 @@ export default function ListMember() {
     members,
     selectedRoom,
     selectedRoomId,
-    setUserCallId,
     setIsShowMembersVisible,
     isShowMembersVisible,
-    isVideoCall,
-    setIsVideoCall,
   } = useContext(AppContext);
   const {
     user: { uid },

@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import styled from "styled-components";
 import { AppContext } from "../../context/AppProvider";
 import { AuthContext } from "../../context/AuthProvider";
-import firebase , { db } from "../../firebase/Config";
+import firebase, { db } from "../../firebase/Config";
 import { addDocuments } from "../../firebase/Service";
 
 const DivStyle = styled.div`
@@ -60,7 +60,7 @@ export default function IconShow() {
   const {
     user: { uid, displayName, photoURL },
   } = useContext(AuthContext);
-  const { selectedRoomId, members, setIsShowInputIcon, isShowInputIcon } =
+  const { selectedRoomId, members, setIsShowInputIcon } =
     useContext(AppContext);
   const all = document.getElementsByTagName("img");
   useEffect(() => {

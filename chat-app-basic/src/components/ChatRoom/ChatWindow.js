@@ -1381,9 +1381,8 @@ function ChatWindow() {
     <>
       <ReactAudioPlayer
         src="mess.mp3"
-        muted="true"
         className="audio"
-        crossOrigin
+        crossOrigin="true"
       />{" "}
       {selectedRoomId ? <>{mainLayout()}</> : <>{noSelectRoom()}</>}
     </>
